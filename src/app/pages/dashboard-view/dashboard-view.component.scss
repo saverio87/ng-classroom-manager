@@ -1,0 +1,30 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  border: 1px solid #00B4D8;
+  box-shadow: 0px 0px;
+
+
+  color: #00B4D8;
+    font-size: 1.5rem;
+    font-weight: 800;
+    font-family: Nunito;
+
+  .icon {
+    margin: 1rem;
+    width: 6rem;
+    height: 6rem;
+  }
+
+  &:hover {
+    cursor: pointer;
+    border: 1px solid #03045E;
+    box-shadow: 10px 10px 3px whitesmoke;
+    color: #03045E;
+
+
+  }
+
+}

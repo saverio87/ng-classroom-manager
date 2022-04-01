@@ -1,0 +1,83 @@
+<div class="centered-content">
+  <div class="modal-box styled-box is-flex is-flex-direction-column ">
+  
+      
+        <div class="has-text-centered">
+          <h1>Create new classroom</h1>
+        </div>
+  
+        <form style="position: relative; flex-grow: 1;" [formGroup]="addClassroomForm" (ngSubmit)="onSubmit()">
+          <div class="field my-5">
+            <label class="label">Name</label>
+            <div class="control">
+              <input
+                id="name"
+                formControlName="name"
+                class="input custom-input"
+                type="text"
+                placeholder="Classroom name"
+              />
+            </div>
+          </div>
+  
+          <div class="field my-5">
+            <label class="label">Grade</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="gender" formControlName="grade" class="custom-input">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="field my-5">
+            <label class="label">Course year</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="year" formControlName="year" class="custom-input">
+                  <option>2020</option>
+                  <option>2021</option>
+                  <option>2020</option>
+                  <option>2019</option>
+                  <option>2018</option>
+                  <option>2017</option>
+                  <option>2016</option>
+                  <option>2015</option>
+                  <option>2014</option>
+                  <option>2013</option>
+                  <option>2012</option>
+                  <option>2011</option>
+                  <option>2010</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="field buttons-container is-flex is-justify-content-flex-end">
+            <div class="control">
+              <button class="button is-link">Add classroom</button>
+            </div>
+            
+          </div>
+        </form>
+   
+  
+    
+    
+  </div>
+
+</div>
+
+ 

@@ -1,0 +1,321 @@
+<div class="centered-content">
+  <div class="modal-box styled-box is-flex is-flex-direction-column">
+    
+    <!-- Classroom name -->
+    <div class="has-text-centered">
+      <h1>{{ classroom.name }}</h1>
+      <p>Grade {{ classroom.grade }}</p>
+    </div>
+
+    <!-- Tabs div -->
+
+    <div class="tabs is-centered is-medium">
+      <ul>
+        <li [ngClass]="{ 'is-active': tabView === 'students' }">
+          <a (click)="changeTabView('students')">
+            <span>Students</span>
+          </a>
+        </li>
+        <li [ngClass]="{ 'is-active': tabView === 'groups' }">
+          <a (click)="changeTabView('groups')">
+            <span>Groups</span>
+          </a>
+        </li>
+        <li [ngClass]="{ 'is-active': tabView === 'notes' }">
+          <a (click)="changeTabView('notes')">
+            <span>Notes</span>
+          </a>
+        </li>
+        <li [ngClass]="{ 'is-active': tabView === 'activities' }">
+          <a (click)="changeTabView('activities')">
+            <span>Activities</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main View -->
+    
+    
+    <div class="main-view">
+
+      <!-- Students Tab View -->
+
+      <ng-container *ngIf="tabView === 'students'">
+
+        <ng-container *ngIf="students.length > 0; else no_students" >
+          <!-- Table -->
+          <div class="">
+          <table class="table custom-table is-hoverable is-fullwidth is-striped">
+            <tbody>
+              
+              <tr *ngFor="let student of pageOfStudents; let i = index">
+                <td style="width: 20px;">
+                  {{i + 1}}
+                </td>
+                <td >
+                  {{student.name}}
+                </td>
+                <td style="width: 20px;">
+                  <fa-icon [routerLink]="['../../students/', student._id]"
+                   class="has-text-primary" [icon]="faArrowCircleRight"></fa-icon>
+                </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <!-- Pagination and buttons -->
+          <div class="columns buttons-container">
+            <div class="column is-half">
+              <app-pagination [items]="students" (changePage)="onChangeStudentPage($event)"></app-pagination>
+            </div>
+            <div class="column is-half">
+              <div class="is-flex is-justify-content-flex-end buttons">
+                  <button class="button is-normal is-info"
+                  [routerLink]="['/classrooms',classroom._id,'add-students']">
+                    <span class="icon is-large">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                  </button>
+            </div>
+          </div>
+          </div>
+        </ng-container>
+
+        <ng-template #no_students>
+          <p class="is-size-5 mt-4">
+            There are no students in this class. Start adding students!
+          </p>
+
+          <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+            <button class="button is-normal is-info" [routerLink]="['/classrooms',classroom._id,'add-students']">
+              <span class="icon is-large">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+           </div>
+          
+
+        </ng-template>
+
+        
+        
+      </ng-container>
+
+      <!-- groups Tab View -->
+
+      <ng-container *ngIf="tabView == 'groups'">
+        <ng-container
+          *ngIf="
+            classroom.groups && classroom.groups.length > 0;
+            else no_groups
+          "
+        >
+          <div class="columns">
+            <div *ngFor="let group of classroom.groups" class="column is-one-third">
+              <article class="message is-dark">
+                <div class="message-header">
+                  <p>{{group.name}}</p>
+                  <button class="delete" aria-label="delete"></button>
+                </div>
+                <div class="message-body" [ngStyle]="{'background-color': group.color}">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla
+                </div>
+              </article>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #no_groups>
+          <p class="is-size-5 mt-5">
+            No groups have been created for this class
+          </p>
+
+          <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+            <button class="button is-normal is-info" (click)="openModal('add-groups')">
+              <span class="icon is-large">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+           </div>
+        </ng-template>
+      </ng-container>
+
+      <!-- notes Tab View -->
+
+      <ng-container *ngIf="tabView == 'notes'">
+        <ng-container
+          *ngIf="classroom.notes && classroom.notes.length > 0; else no_notes"
+        >
+        
+        <!-- Table -->
+        <div class="">
+          <table class="table custom-table is-hoverable is-fullwidth is-striped">
+              <!-- <thead>
+                <tr>
+                  <th class="centered">Date</th>
+                  <th class="centered">Title</th>
+                  <th class="centered">-</th>
+                </tr>
+              </thead> -->
+            <tbody>
+              
+              <tr *ngFor="let note of pageOfNotes; let i = index">
+                <td class="date-td">
+                  {{formatDate(note.date)}}
+                </td>
+                <td>
+                  <a (click)="selectAndShow(note,'note')">
+                    {{note.title.length > 50 ? (note.title.slice(0,50) + "...") : note.title}}
+                  </a>
+                </td>
+                <td class="icon-td">
+                  <fa-icon class="icon-font trash" [icon]="faTrash"
+                  (click)="onDeleteNote(classroom._id, note._id)"
+                >
+                </fa-icon>
+                </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+          <!-- Pagination and buttons -->
+          <div class="columns buttons-container">
+            <div class="column is-half">
+              <app-pagination [items]="classroom.notes" (changePage)="onChangePage($event)"></app-pagination>
+            </div>
+            <div class="column is-half">
+              <div class="is-flex is-justify-content-flex-end buttons">
+                  <button class="button is-normal is-info"
+                  (click)="openModal('add-note')">
+                    <span class="icon is-large">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                  </button>
+            </div>
+          </div>
+          </div>
+
+        </ng-container>
+        <ng-template #no_notes>
+
+          <p class="is-size-5-mt-5">
+            No notes have been created for this class
+          </p>
+        
+          <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+            <button class="button is-normal is-info" (click)="openModal('add-note')">
+              <span class="icon is-large">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+           </div>
+
+        </ng-template>
+      </ng-container>
+
+      <!-- activities Tab View -->
+
+      <ng-container *ngIf="tabView == 'activities'">
+        <ng-container
+          *ngIf="
+            classroom.activities && classroom.activities.length > 0;
+            else no_activities
+          "
+        >
+            
+            <div class="columns">
+              <div *ngFor="let activity of classroom.activities" class="column is-half">
+                <article class="message is-small is-dark">
+                  <div class="message-header">
+                    <p>{{activity.date.split("T")[0]}}</p>
+                    <button class="delete" aria-label="delete"></button>
+                  </div>
+                  <div class="message-body">
+                    <p><b>Type</b></p>
+                    <p>{{activity.type}}</p>
+                    <p><b>Focus</b></p>
+                    <p>{{activity.focus}}</p>
+                    <!-- <p>{{activity.introduction}}</p> -->
+                  </div>
+                </article>
+              </div>
+            </div>
+            
+        </ng-container>
+        <ng-template #no_activities>
+          
+          <p class="is-size-5 mt-5">
+          No activities have been created for this class<br/>
+          Start adding new activities now!
+          </p>
+
+          <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+            <button class="button is-normal is-info" (click)="openModal('add-activity')">
+              <span class="icon is-large">
+                <i class="fas fa-plus"></i>
+              </span>
+            </button>
+           </div>
+
+          
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- Add note / Add activity -->
+
+<app-modal [modalName]="'Add note'" id="add-note">
+  <form [formGroup]="formGroup">
+  <div class="is-flex is-flex-direction-column">
+    <div>
+      <div class="field my-1">
+        <label class="is-size-5">Title</label>
+        <div class="control has-icons-right">
+          <input formControlName="title" name="title" class="input is-primary is-normal" type="text" placeholder="Note title">
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="field my-2">
+        <label class="is-size-5">Content</label>
+        <div class="control">
+            <textarea rows="6" class="textarea is-primary is-normal" formControlName="content" name="content"
+            placeholder="Note content"></textarea> 
+        </div>
+      </div>
+    </div>
+    <div class="field my-2">
+      <button (click)="onAddNote('add-note', classroom._id, formatPayload(formGroup.value))" class="button is-normal is-primary is-fullwidth">Add note</button>
+    </div>
+  </div>
+</form>
+</app-modal>
+
+
+<!-- Note message -->
+
+<article [ngClass]="{'is-hidden':isNoteMessageOpen == false}" class="note-message message is-medium is-warning">
+  <div class="message-header">
+    <p>{{currentItem && currentItem.title}}</p>
+    <button (click)="selectAndShow(currentItem, 'note')" class="delete" aria-label="delete"></button>
+  </div>
+  <div class="message-body is-flex is-flex-direction-column">
+    <div style="color:darkgray" class="date">
+      {{currentItem && formatDate(currentItem.date)}}
+    </div>
+   <div style="flex-grow: 1" class="content">
+    {{currentItem && currentItem.content}}
+   </div>
+   
+  </div>
+
+</article>

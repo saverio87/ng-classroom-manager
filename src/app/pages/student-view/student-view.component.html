@@ -1,0 +1,437 @@
+
+<ng-container *ngIf="status === 'loading'">
+Loading, please wait ...
+</ng-container>
+<div class="centered-content">
+  <div class="modal-box styled-box is-flex is-flex-direction-column">
+
+    <!-- STUDENT NAME -->
+    <div class="centered">
+      <h1>{{student.name}}</h1>
+    </div>
+
+    
+    <!-- TABS -->
+      <div class="tabs mb-0 is-centered is-medium">
+        <ul>
+          <li *ngFor="let tab of tabs" [ngClass]="{'is-active': tabView === tab}">
+            <a (click)="onChangeTabView(tab)">
+              <span class="capitalize">{{tab}}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    <!-- MAIN VIEW  -->
+    <div class="main-view" style="padding-top: 2rem">
+
+      <!-- INFO TAB VIEW -->
+      <ng-container *ngIf="tabView=='info'">
+
+      
+        <h1 class="my-3">Classroom</h1>
+        <p>
+          {{student.name}} is a student of &nbsp; <span class="tag is-warning is-medium">{{student.classroom.name}}</span>
+          &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+          <a>
+            Assign to another classroom
+          </a>
+        </p>
+        
+        <p class="has-text-right">
+          
+        </p>
+       
+        
+      
+ 
+      <h1 class="my-3">Contact details</h1>
+       <table class="table custom-table is-hoverable is-striped is-fullwidth">
+         <tbody>
+           <tr *ngFor="let contact_detail of student.contact_details">
+             <td class="centered">
+                <fa-icon class="icon-font" [icon]="findIcon(contact_detail.type)"></fa-icon>   
+             </td>
+             <td class="left">
+ 
+               <!-- Checking which entry needs to be displayed or updated -->
+               
+               <ng-container *ngIf="editThis === contact_detail._id; else returnValue">
+                 <div class="is-flex is-flex-row">
+                   <input [(ngModel)]='inputValue' class="input is-primary is-small" type="text" placeholder="{{contact_detail.type}}">
+                   &nbsp;  
+                   <button (click)="onUpdateEntry(
+                     student._id,
+                     contact_detail._id,
+                     {
+                       type: contact_detail.type,
+                       value: inputValue
+                     })" class="button is-small is-link">Update</button>
+                 </div>
+               </ng-container>
+ 
+               <ng-template #returnValue>
+ 
+                 <ng-container *ngIf="contact_detail.value === ''">
+                   <a (click)="onToggleEdit(contact_detail._id)">
+                     Upload {{contact_detail.type}} here
+                   </a>
+                 </ng-container>
+                 {{contact_detail.value}}
+                 
+               </ng-template>
+               
+             </td>
+             <td style='width:100px'>
+               <ng-container style="vertical-align: middle" *ngIf="contact_detail.value">
+                   <fa-icon class="icon-font edit" (click)="onToggleEdit(contact_detail._id)" [icon]="faPen"></fa-icon>
+                 &nbsp;
+                   <fa-icon (click)="onDeleteEntry(
+                     student._id,
+                     contact_detail._id
+                   )" class="icon-font trash" [icon]="faTrash"></fa-icon>
+ 
+               </ng-container>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+ 
+     </ng-container>
+ 
+     <!-- ABSENCES TAB VIEW -->
+ 
+     <ng-container *ngIf="tabView=='absences'">
+ 
+         <ng-container *ngIf="student.absences.length > 0; else no_absences" >
+            
+              <!-- Table -->
+             <div>
+              <table class="table custom-table is-hoverable is-striped is-fullwidth">
+                <!-- <thead>
+                  <tr>
+                    <th class="centered">Date</th>
+                    <th class="centered">Type</th>
+                    <th class="centered">Comment</th>
+                    <th class="centered">-</th>
+                  </tr>
+                </thead> -->
+                <tbody>
+                  
+                  <tr *ngFor="let absence of pageOfItems">
+                  <th class="left"> {{formatDate(absence.date)}}</th>
+                  <td class="left"><div class="tag" [ngClass]="{'is-danger': absence.type == 'absent', 'is-warning': absence.type == 'late', 'is-dark': absence.type == 'left early'}">{{absence.type}}</div></td>
+                  <td class="left">{{absence.comment.length > 30 ? (absence.comment.slice(0,30) + "...") : absence.comment}} </td>
+                  
+                  <td class="left">
+                    <!-- <fa-icon class="icon-font" [icon]="faPen" (click)="onAddAbsence(
+                      student._id,
+                      mockPayload
+                    )"></fa-icon> -->
+                    <fa-icon class="icon-font trash" [icon]="faTrash"
+                    (click)="onDeleteAbsence(
+                    student._id,
+                    absence._id
+                    )"
+                    ></fa-icon>
+                  </td>
+  
+                  
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Buttons -->
+            <!-- Pagination and buttons -->
+              <div class="columns buttons-container">
+                <div class="column is-half">
+                  <app-pagination [items]="student.absences" (changePage)="onChangePage($event)"></app-pagination>
+                </div>
+                <div class="column is-half">
+                  <div class="is-flex is-justify-content-flex-end buttons">
+                      <button class="button is-info is-light is-normal" (click)="openModal('view-absences')">
+                        View all...
+                        <!-- <span class="icon is-large">
+                          <fa-icon [icon]="faAlignJustify"></fa-icon>
+                        </span> -->
+                      </button>
+                      <button class="button is-normal is-info" (click)="openModal('add-absence')">
+                        <span class="icon is-large">
+                          <i class="fas fa-plus"></i>
+                        </span>
+                      </button>
+                </div>
+              </div>
+        </div>
+             
+ 
+         </ng-container>
+         <ng-template #no_absences>
+           <p class="is-size-4 mt-5">
+            There are no absences recorded for this student
+           </p>
+           <!-- Pagination and buttons -->
+           <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+                  <button class="button is-normal is-info" (click)="openModal('add-absence')">
+                    <span class="icon is-large">
+                      <i class="fas fa-plus"></i>
+                    </span>
+                  </button>
+           </div>
+         </ng-template>
+ 
+     </ng-container>
+ 
+     <!-- Feedback Tab View -->
+ 
+     <ng-container *ngIf="tabView=='feedback'">
+ 
+       <ng-container *ngIf="student.feedback.length > 0; else no_feedback" >
+         <div class="">
+          <table class="table custom-table is-hoverable is-striped is-fullwidth">
+            <!-- <thead>
+              <tr>
+                <th class="centered">Date</th>
+                <th class="centered">Type</th>
+                <th class="centered">Comment</th>
+                <th class="centered">-</th>
+              </tr>
+            </thead> -->
+            <tbody>
+              
+              <tr *ngFor="let item of pageOfItems">
+              <th class="left"> {{formatDate(item.date)}}</th>
+              <td class="left"><div class="tag" [ngClass]="{'is-success': item.type === 'positive', 'is-danger': item.type === 'negative'}">{{item.type}}</div></td>
+              <td class="left">{{item.comment.length > 30 ? (item.comment.slice(0,30) + "...") : item.comment}}</td>
+              <td class="left">
+                <fa-icon class="icon-font trash" [icon]="faTrash"
+                (click)="onDeleteFeedback(
+                      student._id,
+                      item._id
+                      )">
+                </fa-icon>
+              </td> 
+              </tr>
+            </tbody>
+          </table>
+         </div>
+
+         <!-- pagination and buttons -->
+
+         <div class="columns buttons-container">
+          <div class="column is-half">
+            <app-pagination [items]="student.feedback" (changePage)="onChangePage($event)"></app-pagination>
+          </div>
+          <div class="column is-half">
+            <div class="is-flex is-justify-content-flex-end buttons">
+                <button class="button is-info is-light is-normal" (click)="openModal('view-feedback')">
+                  View all...
+                  <!-- <span class="icon is-large">
+                    <fa-icon [icon]="faAlignJustify"></fa-icon>
+                  </span> -->
+                </button>
+                <button class="button is-normal is-info" (click)="openModal('add-feedback')">
+                  <span class="icon is-large">
+                    <i class="fas fa-plus"></i>
+                  </span>
+                </button>
+            </div>
+          </div>
+        </div>
+
+
+       </ng-container>
+ 
+       <ng-template #no_feedback>
+        <p class="is-size-4 mt-5">
+          There is no feedback recorded for this student
+         </p>
+         <!-- Pagination and buttons -->
+         <div class="is-flex is-flex-direction-row is-justify-content-flex-end buttons-container">          
+          <button class="button is-normal is-info" (click)="openModal('add-feedback')">
+            <span class="icon is-large">
+              <i class="fas fa-plus"></i>
+            </span>
+          </button>
+         </div>
+       </ng-template>
+         
+     </ng-container>
+     
+      
+    
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+
+<!-- View absences modal -->
+
+<app-modal [modalName]="'View absences'" id="view-absences">
+  <table class="table custom-table is-hoverable is-striped is-fullwidth">
+    <thead>
+      <tr>
+        <th class="date-td">Date</th>
+        <th class="centered">Type</th>
+        <th class="centered">Comment</th>
+        <th class="centered">-</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let absence of student.absences">
+      <td class="date-td"> {{formatDate(absence.date)}}</td>
+      <td class="centered">
+        <div class="tag" [ngClass]="{'is-danger': absence.type == 'absent', 'is-warning': absence.type == 'late', 'is-dark': absence.type == 'left early'}">{{absence.type}}</div>
+        </td>
+      <td class="left">{{absence.comment}}</td>
+      <td class="icon-td"><fa-icon class="icon-font trash" [icon]="faTrash"
+        (click)="onDeleteAbsence(
+                    student._id,
+                    absence._id
+                    )"></fa-icon>
+      </td>
+
+      
+      </tr>
+    </tbody>
+  </table>
+</app-modal>
+
+<!-- Add feedback modal -->
+
+<app-modal [modalName]="'Add feedback'" id="add-feedback">
+  <form [formGroup]="formGroup">
+  <div class="columns">
+    <div class="column is-half">
+      <div class="mb-2">
+        <div class="field">
+          <div class="control">
+            <div class="select is-medium is-secondary is-fullwidth"
+            >
+              <select class="has-border" formControlName="type" name="type">
+                <option value="" selected disabled hidden>Positive or negative</option>
+                <option>positive</option>
+                <option>negative</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="field">
+          <div class="control">
+              <textarea rows="6" class="textarea is-medium has-border" formControlName="comment" name="comment"
+              placeholder="Leave your comment here..."></textarea> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-half is-flex is-justify-content-center">
+      
+      <div class="control">
+        <input type="hidden" class="input-box input is-medium has-border is-fullwidth" placeholder="Click to select a date" 
+        angular-mydatepicker (click)="dp.toggleCalendar()" 
+        [options]="myDpOptions" 
+        #dp="angular-mydatepicker"
+        name="date"
+        formControlName="date"/>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-full">
+      <button style="margin-top:2rem" class="button is-normal is-primary is-fullwidth" (click)="onAddFeedback('add-feedback', student._id, formGroup.value)">Submit</button>
+    </div>
+  </div>
+</form>
+
+</app-modal>
+
+<!-- Add absence modal -->
+
+<app-modal [modalName]="'Add absence'" id="add-absence">
+  <form [formGroup]="formGroup">
+  <div class="columns">
+    <div class="column is-half">
+      <div class="mb-2">
+        <div class="field">
+          <div class="control">
+            <div class="select is-medium is-secondary is-fullwidth"
+            >
+              <select class="has-border" formControlName="type" name="type">
+                <option value="" selected disabled hidden>Absent / late / left early</option>
+                <option>absent</option>
+                <option>late</option>
+                <option>left early</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <div class="field">
+          
+          <div class="control">
+              <textarea rows="6" class="textarea is-medium has-border" formControlName="comment" name="comment"
+              placeholder="Leave your comment here..."></textarea> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column is-half is-flex is-justify-content-center">
+      
+      <div class="control">
+        <input type="hidden" class="input-box input is-medium has-border is-fullwidth" placeholder="Click to select a date" 
+        angular-mydatepicker (click)="dp.toggleCalendar()" 
+        [options]="myDpOptions" 
+        #dp="angular-mydatepicker"
+        name="date"
+        formControlName="date"/>
+      </div>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-full">
+      <button style="margin-top:2rem" class="button is-normal is-primary is-fullwidth" (click)="onAddAbsence('add-absence', student._id, formGroup.value)">Submit</button>
+    </div>
+  </div>
+</form>
+</app-modal>
+
+<!-- View feedback modal -->
+
+<app-modal [modalName]="'View feedback'" id="view-feedback">
+  <table class="table custom-table is-hoverable is-striped is-fullwidth">
+    <thead>
+      <tr>
+        <th class="centered">Date</th>
+        <th class="centered">Type</th>
+        <th class="centered">Comment</th>
+        <th class="centered">-</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr *ngFor="let item of student.feedback">
+      <td class="left"> {{formatDate(item.date)}}</td>
+      <td class="left"><div class="tag" [ngClass]="{'is-success': item.type === 'positive', 'is-danger': item.type === 'negative'}">{{item.type}}</div></td>
+      <td class="left">{{item.comment}}</td>
+      <td class="left"><fa-icon class="icon-font trash" [icon]="faTrash"
+        (click)="onDeleteFeedback(
+                    student._id,
+                    item._id
+                    )"></fa-icon>
+      </td>
+
+      
+      </tr>
+    </tbody>
+  </table>
+</app-modal>
+
+
+

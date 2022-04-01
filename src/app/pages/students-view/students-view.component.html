@@ -1,0 +1,99 @@
+<p>students-view works!</p>
+
+<div class="container">
+
+  <!-- menu -->
+
+  <div class="tabs is-boxed is-medium is-right">
+    
+    <ul>
+      Sort by ... &nbsp;&nbsp;&nbsp;
+      <li [ngClass]="{'is-active': sortingMethod === 'alphabet'}"><a (click)="changeSortingMethod('alphabet')">Alphabetical order</a></li>
+      <li [ngClass]="{'is-active': sortingMethod === 'classroom'}"><a (click)="changeSortingMethod('classroom')">Classroom</a></li>
+      <li [ngClass]="{'is-active': sortingMethod === 'sex'}"><a (click)="changeSortingMethod('sex')">Sex/Gender</a></li>
+      
+    </ul>
+  </div>
+
+  <!-- end menu -->
+
+
+  <!-- Sort students by name -->
+
+  <ng-container *ngIf="sortingMethod=='alphabet'">
+    
+    <div class="columns is-multiline">
+
+      <div class="column is-half" *ngFor="let student of displayStudentsByName(students)">
+        <app-student-item 
+        [student]="student"></app-student-item>
+      </div>
+  
+    </div>
+
+  </ng-container>
+
+    <!-- Sort students by classroom -->
+  
+    <ng-container *ngIf="sortingMethod=='classroom'">
+      
+      <div class="columns is-multiline" *ngFor="let classroom of displayStudentsByClassroom(students)">
+        <div class="column is-full">
+          <!-- <p class="is-capitalized is-size-3 has-text-weight-bold"> -->
+            <h1>Students in {{classroom.name}}</h1>
+          <!-- </p> -->
+          </div>
+        <div class="column is-half" *ngFor="let student of classroom.students">
+          <app-student-item 
+          [student]="student"></app-student-item>
+        </div>
+      </div>
+    </ng-container>
+
+     <!-- Sort students by classroom -->
+
+    <ng-container *ngIf="sortingMethod=='sex'">
+      <div class="columns is-multiline" *ngFor="let gender of displayStudentsBySex(students)">
+        <div class="column is-full">
+          <ng-container>
+            <!-- If boys -->
+            <span *ngIf="gender.gender === 'male'">
+         <h1>Male students</h1>
+          </span>
+          <!-- If girls -->
+          <span *ngIf="gender.gender === 'female'">
+            <h1>Female students</h1>
+            </span>
+        </ng-container>
+      
+      
+      </div>
+        <div class="column is-half" *ngFor="let student of gender.students">
+          <app-student-item 
+          [student]="student"></app-student-item>
+        </div>
+      </div>
+    </ng-container>
+
+
+  <!-- <div class="columns is-multiline">
+
+    <div class="column is-half" *ngFor="let student of allStudents$ | async">
+      <app-student-item 
+      [student]="student"></app-student-item>
+    </div>
+
+  </div> -->
+    
+  
+
+  <!-- <div class="columns">
+    <div class="column is-one-third" *ngFor="let student of allStudents$ | async">
+      <app-student-item 
+      [student]="student" [classroom]=""></app-student-item>
+    </div>
+  </div> -->
+
+</div>
+
+<!-- findClassroomName(student._id) -->

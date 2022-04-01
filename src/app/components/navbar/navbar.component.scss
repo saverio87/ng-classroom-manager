@@ -1,0 +1,35 @@
+
+@import '../../../main-styles.scss';
+
+
+.navbar {
+  background-color: whitesmoke;
+  border-bottom: 1px dashed $primary;
+}
+
+.navbar-brand {
+  flex-grow: 1;
+}
+
+.navbar-menu .navbar-item {
+  padding: 0rem 2rem 0rem 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: darkslategray;
+  &:hover {
+    background-color: whitesmoke;
+    color: $primary
+  }
+
+  
+}
+
+.navbar-brand > .navbar-item {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: $dark-blue;
+}

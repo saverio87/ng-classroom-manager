@@ -1,0 +1,54 @@
+
+<div class='container'>
+
+  <div class="has-text-centered py-5">
+    <h1 class='is-size-2 is-uppercase has-text-secondary'>My Classrooms</h1>
+  </div>
+  <div class="columns is-multiline">
+    <div class="column is-full">
+      <div class="styled-box add-classroom" routerLink="/add-classroom">
+        <fa-icon class='is-size-2 is-info' [icon]="faPlusCircle"></fa-icon> 
+      </div>
+    </div>
+
+    <div class="column is-full" *ngFor="let classroom of allClassrooms$ | async">
+      <app-classroom-item 
+      [studentsNumber]="studentsPerClass(classroom._id)"
+      [classroom]="classroom"
+      [studentsInClass]="studentsInClass(classroom._id)"
+      ></app-classroom-item>
+    </div>
+  </div>
+
+  <div class="columns is-multiline">
+    <!-- Add new classroom -->
+    <div class="column is-one-third">
+      <div class="styled-box add-classroom" routerLink="/add-classroom">
+        
+          <fa-icon class='is-size-1 is-info' [icon]="faPlusCircle"></fa-icon> 
+        
+        
+        </div>
+    </div>
+    <div class="column is-one-third" *ngFor="let classroom of allClassrooms$ | async">
+      <app-classroom-item 
+      [studentsNumber]="studentsPerClass(classroom._id)"
+      [classroom]="classroom"
+      [studentsInClass]="studentsInClass(classroom._id)"
+      ></app-classroom-item>
+    </div>    
+  </div>
+</div>
+
+<!-- 
+
+<div class="column" *ngFor="let classroom of studentsByClass">
+  <h1>{{classroom.name}}</h1>
+  <ul>
+    <li *ngFor="let student of classroom.students">{{student.name}}</li>
+  </ul>
+</div> -->
+
+<!-- <app-students-view></app-students-view> -->
+
+

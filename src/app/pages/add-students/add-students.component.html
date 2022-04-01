@@ -1,0 +1,190 @@
+
+<div class="centered-content">
+  <div class="modal-box styled-box">
+      <ng-container *ngIf="addSingleStudent; else addMultipleStudents;">
+      
+        <div class="has-text-centered">
+          <h1>Add student to {{classroom.name}}</h1>
+        </div>
+  
+        <form [formGroup]="addStudentForm" (ngSubmit)="onSubmitLeft()">
+          <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+              <input
+                id="name"
+                formControlName="name"
+                class="input custom-input"
+                type="text"
+                placeholder="Student name"
+              />
+            </div>
+          </div>
+  
+          <div class="field">
+            <label class="label">Sex / Gender</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select id="gender" formControlName="gender" class="custom-input">
+                  <option>male</option>
+                  <option>female</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                id="email"
+                [formControl]="email"
+                class="input custom-input"
+                type="email"
+                placeholder="Email input"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+            </div>
+          </div>
+  
+          <div class="field">
+            <label class="label">Phone</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                id="phone"
+                [formControl]="phone"
+                class="input custom-input"
+                type="tel"
+                placeholder="Phone number"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone"></i>
+              </span>
+            </div>
+          </div>
+  
+          <div class="mt-5 field is-grouped is-flex is-justify-content-flex-end">
+            <div class="control">
+              <button class="button is-link">Add student</button>
+            </div>
+            <div class="control">
+              <button type="button" class="button is-link is-light" (click)="addSingleStudent = !addSingleStudent">
+                Add multiple students
+              </button>
+            </div>
+          </div>
+        </form>
+   
+      </ng-container>
+    
+      <ng-template #addMultipleStudents>
+      
+        <div class="has-text-centered my-2">
+        <h1>Add multiple students to {{classroom.name}}</h1>
+        </div>
+
+        <form [formGroup]="addStudentForm" (ngSubmit)="onSubmitRight()">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <textarea class="textarea custom-input" id="name"               formControlName="name"
+            placeholder="Ex.: &#10;Mary&#10;Patrick&#10;Rose" rows="10"></textarea>
+            <p class="help is-primary has-text-right">Input one student name per line</p>
+
+          </div>
+        </div>
+          <div class="field is-grouped is-flex is-justify-content-flex-end">
+            <div class="control">
+              <button class="button is-link">Add students</button>
+            </div>
+            <div class="control">
+              <button type="button" class="button is-link is-light" (click)="addSingleStudent = !addSingleStudent">
+                Add one student at a time
+              </button>
+            </div>
+          </div>
+        </form>
+  
+      </ng-template>
+    
+  </div>
+
+</div>
+
+<!-- Modal -->
+
+<div id="students-to-add" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head py-3">
+      <p class="modal-card-title">Students to add</p>
+      <button class="delete" aria-label="close" (click)="closeModal('students-to-add')"></button>
+    </header>
+    <section class="modal-card-body">
+      
+      <ng-container *ngIf="studentsToAdd.length > 0; else noStudents;">
+        
+        <div class="py-3">
+          <div class="columns is-multiline">
+            <div
+              class="column is-half p-1"
+              *ngFor="let student of studentsToAdd; let index = index"
+            >
+              <div
+                class="student-item"
+                [style]="
+                student.gender === 'boy' ? 'border-color: lightblue' :
+                (student.gender === 'girl' ? 'border-color: pink' : 'border-color: lightgray')
+                "
+              >
+            
+                <div style="flex-grow: 1">
+                  {{ student.name }}
+                </div>
+                <div class="icon">
+                  <fa-icon (click)="removeStudent(index)" class="icon has-text-danger" [icon]="faTrashAlt"></fa-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-template #noStudents>
+        <h1>You haven't added any students yet</h1>
+      </ng-template>
+
+
+    </section>
+    <footer class="is-flex is-justify-content-flex-end modal-card-foot py-1">
+
+      <ng-container *ngIf="studentsToAdd.length > 0">
+      <button
+          (click)="onSubmit(studentsToAdd)"
+           class="button is-link">
+            I'm done adding students
+            
+          </button>
+      </ng-container>
+      <button class="button" (click)="closeModal('students-to-add')">Go back</button>
+    </footer>
+  </div>
+
+</div>
+
+<!-- End of modal -->
+
+
+<button class="button modal-button" (click)="openModal('students-to-add')">
+  <div class="counter">
+  {{studentsToAdd.length}}
+  </div>
+  Students to add
+
+</button>
+
+
+
+

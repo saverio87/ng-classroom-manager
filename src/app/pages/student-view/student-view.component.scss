@@ -1,0 +1,59 @@
+@import '../../../main-styles.scss';
+
+
+// Text
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.headings {
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: "1.2rem";
+}
+
+.absence-entry {
+  & :hover {
+    background-color: whitesmoke;
+  }
+}
+
+.contact-detail-entry {
+
+  background-color: aliceblue;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+
+  > .entry {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  .type {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .value {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  & :hover {
+  background-color: whitesmoke;
+  border-radius: 1rem;
+
+}
+}
+
+
+
+
+.has-border {
+  border: 1px solid gray;
+}

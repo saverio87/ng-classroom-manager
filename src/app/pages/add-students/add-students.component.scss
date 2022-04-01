@@ -1,0 +1,50 @@
+
+@import '../../../main-styles.scss';
+
+.custom-input {
+  border: 1px solid $primary;
+}
+
+
+
+.student-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem 1rem 0.3rem 2rem;
+  border-radius: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  border: 2px solid;
+  background-color: white;
+
+  > .icon {
+    cursor: pointer;
+  }
+  
+}
+
+
+
+.modal-button {
+  display:inline-block;
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
+}
+
+.counter {
+  border-radius: 100%;
+  margin: 0px;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: wheat;
+  padding: 0.5rem;
+  position: absolute;
+  top: -10px;
+  left: -10px;
+}

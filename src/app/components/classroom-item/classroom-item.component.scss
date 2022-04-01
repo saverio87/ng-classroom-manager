@@ -1,0 +1,16 @@
+@import '../../../main-styles.scss';
+
+.box-header {
+  position: relative;
+}
+
+.classroom-name {
+
+  &:hover {
+    color: $primary;
+    cursor: pointer;
+    
+  }
+}
+
+

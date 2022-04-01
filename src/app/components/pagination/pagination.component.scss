@@ -1,0 +1,63 @@
+@import '../../../main-styles.scss';
+
+
+.pagination {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.is-disabled {
+  background-color: whitesmoke !important;
+  color: grey !important;
+  border: 1px solid grey !important;
+}
+
+.pagination-previous, .pagination-next {
+  border: 2px solid #3488CE;
+  background-color: #3488CE;
+  color: whitesmoke;
+  font-size: 1rem;
+  font-weight: 900;
+
+  &:hover {
+    background-color: whitesmoke;
+    color: #3488CE;
+
+  }
+}
+
+//   &:hover {
+//     background-color: whitesmoke;
+//     color: grey;
+//     border: 1px solid grey;
+//   }
+// }
+
+// .page-item {
+//   height: 2rem;
+//   width: 2rem;
+//   margin: 0px 1px 0px 1px;
+//   border: 1px solid $primary;
+//   border-radius: 0.2rem;
+
+
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+
+//   font-family: Nunito;
+//   font-weight: 900;
+
+//   &:hover {
+//     cursor: pointer;
+//     background-color: $primary;
+//     color: white;
+//   }
+
+// }
+
+// .active {
+// background-color: $primary;
+// }
+
+

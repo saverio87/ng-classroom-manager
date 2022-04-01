@@ -1,0 +1,36 @@
+@import '../../../main-styles.scss';
+
+
+.student-item {
+  display: flex;
+  padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+  background-color: whitesmoke;
+  border: 1px solid;
+  &:hover {
+    border-color: $primary;
+  }
+
+  > .name {
+flex-grow: 1;
+  }
+
+  > .link {
+    cursor: pointer;
+  }
+}
+
+
+.page-item {
+  border: 1px solid $primary;
+  font-size: 2rem;
+}
+
+
+.note-message {
+  border: 2px solid #FCE08A;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+

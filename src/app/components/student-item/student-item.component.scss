@@ -1,0 +1,10 @@
+@import '../../../main-styles.scss';
+
+
+.icon {
+  font-size: 1.2rem;
+  margin: 0px 2px 0px 2px;
+  &:hover {
+    cursor: pointer;
+  }
+}

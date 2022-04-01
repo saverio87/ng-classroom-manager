@@ -1,0 +1,16 @@
+@import '../../../main-styles.scss';
+
+
+.add-classroom {
+  height: 100%;
+  padding: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3E8ED0;
+
+  &:hover {
+    cursor: pointer;
+    color: $primary
+  }
+}

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,700&display=swap');
+
+
+$dark-blue: #03045E;
+$turquoise: #44ddd0;
+$green: #27d7a1;
+$light-green: #45f69e;
+$dark-green: rgb(0,100,80);
+
+
+$light: #f8f8f8;
+
+// Update Bulma's global variables
+
+$family-sans-serif: "Nunito", sans-serif;
+$primary: #00B4D8;
+$secondary: grey;
+$link: $dark-blue;
+$column-gap: 0.75rem;
+
+
+
+// Update Bulma's component styles
+
+
+
+// Set custom global styles
+
+html, body {
+background: linear-gradient(to right top, white,whitesmoke);
+}
+
+html, body {
+height: 100%;
+}
+
+.centered-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90%;
+}
+
+.modal-box {
+  width: 100%;
+  min-height: 500px;
+  height: auto;
+  max-width: 800px;
+}
+
+.styled-box {
+  padding: 1rem 2rem 1rem 2rem;
+  border-radius: 0.3rem;
+  border: 1px dashed $primary;
+  box-shadow: 0px 0px;
+  background-color: white;
+
+  &:hover {
+    box-shadow: 10px 10px 3px whitesmoke;
+  }
+
+  .box-header {
+    color: $dark-blue;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-family: Nunito;
+  }
+
+}
+
+// Student view and classroom view component 
+
+.main-view {
+  padding: 0rem;
+  flex-grow: 1;
+  position: relative; 
+}
+
+.buttons-container {
+  position: absolute; 
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}
+
+  // Notes, absences, feedback etc. entries
+
+  .custom-table {
+    tr {
+
+      .date-td {
+        width: 150px;
+      }
+      
+      td {
+        border: 0px;
+        vertical-align: middle;
+        text-align: left;
+      }
+      th {
+        border: 0px;
+        vertical-align: middle;
+      }
+
+      .icon-td {
+        width: 30px;
+        text-align: right;
+        
+      }
+    }
+  }
+
+
+.btn {
+  margin: 0px 3px 0px 3px;
+  border: 1px solid $primary;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.8rem;
+  padding: 0px;
+  text-align: center;
+  background-color: white;
+
+  &:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+  }
+}
+
+h1 {
+  font-family: Nunito;
+  font-size: 1.5rem;
+  color: #3488CE;
+  font-weight: 800;
+}
+
+
+.icon-font {
+  font-size: 1.5rem;
+  margin: 0px;
+  padding: 0px;
+}
+
+.icon-font.edit {
+  color: grey;
+  &:hover {
+    color: $primary;
+  }
+}
+.icon-font.trash {
+  color: red;
+  &:hover {
+    color: $primary;
+  }
+}
+
+.left {
+  vertical-align: middle;
+  text-align: left
+}
+
+.centered {
+  vertical-align: middle;
+  text-align: center
+}
+.right {
+  vertical-align: middle;
+  text-align: right
+}

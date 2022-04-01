@@ -1,0 +1,52 @@
+<!-- <div class="styled-box" style="padding:  1rem">
+  <div class="box-header">
+    
+    <span class="classroom-name" [routerLink]="['/classrooms', classroom._id]" 
+  >
+  {{classroom.name}}
+  </span>
+  </div>
+  
+  <div class="box-footer has-text-left">
+    <p class="my-1"><span class="tag is-info is-normal">Students: &nbsp;&nbsp;<b>{{ studentsNumber }}</b></span> </p>
+    
+    <p class="my-1"><span class="tag is-info is-light is-normal">Course year: &nbsp;&nbsp; <b>{{ classroom.year }}</b></span></p>
+  </div>
+  
+</div> -->
+
+<div class='styled-box py-3 px-5 is-flex is-flex-direction-row'>
+  
+    <div class='is-flex is-flex-direction-row is-align-items-center' style="flex-grow: 1;">
+      <span class="classroom-name" [routerLink]="['/classrooms', classroom._id]">
+        <h1>{{classroom.name}}</h1>
+      </span>
+      &nbsp;&nbsp;&nbsp;
+      <span class="tag is-info is-normal">Students: &nbsp;&nbsp;<b>{{ studentsNumber }}</b>
+      </span>
+      &nbsp;&nbsp;
+      <span class="tag is-info is-light is-normal">Course year: &nbsp;&nbsp; <b>{{ classroom.year }}</b></span>
+      <p class='is-size-2 has-text-primary'>
+        
+      </p>
+    </div>
+  
+    <div class='is-flex is-align-items-center'>
+      <fa-icon [routerLink]="['/classrooms', classroom._id]"
+       class="mx-1 icon has-text-primary" [icon]="faEye"></fa-icon>
+      <fa-icon (click)="onRemoveClassroom(classroom._id)" class="mx-1 icon has-text-danger" [icon]="faTrashAlt"></fa-icon>
+      
+    </div>
+  </div>
+
+
+
+
+  <!-- <div class="gear-icon">
+      
+        <fa-icon 
+        [routerLink]="['/classrooms', classroom._id]" 
+        (click)="loadClassroom(classroom._id)" class="has-text-primary"
+        [icon]="faPenToSquare"></fa-icon>
+  
+    </div> -->

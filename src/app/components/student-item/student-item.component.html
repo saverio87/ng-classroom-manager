@@ -1,0 +1,32 @@
+
+<div class='styled-box py-3 px-5 is-flex is-flex-direction-row'>
+  
+    <div class='is-flex is-flex-direction-row is-align-items-center' style="flex-grow: 1;">
+      <span>
+        <span *ngIf="student.gender === 'male'">
+          <fa-icon class='is-size-4' style="color: lightskyblue" [icon]="faMars"></fa-icon>  
+        </span>
+        <span  *ngIf="student.gender === 'female'">
+          <fa-icon class='is-size-4' style="color: palevioletred" [icon]="faVenus"></fa-icon>  
+        </span>
+      </span>
+      <span class="is-size-4 mx-3 is-uppercase">
+        {{student.name}}
+      </span>
+      &nbsp;&nbsp;
+      <span class="tag is-medium">
+        {{student.classroom.name}}
+      </span>
+      <p class='is-size-2 has-text-primary'>
+        
+      </p>
+    </div>
+  
+    <div class='is-flex is-align-items-center'>
+      <fa-icon [routerLink]="['/students', student._id]"
+       class="mx-1 icon has-text-primary" [icon]="faEye"></fa-icon>
+      <fa-icon (click)="onDeleteStudent(student._id)" class="mx-1 icon has-text-danger" [icon]="faTrash"></fa-icon>
+      
+    </div>
+  </div>
+
