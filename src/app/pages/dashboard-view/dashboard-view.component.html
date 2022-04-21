@@ -1,26 +1,76 @@
 
 
-<div class="container has-text-centered">
-  <div class="is-flex is-justify-content-center">
-    <div routerLink="/classrooms" class='column is-one-quarter '>
-      <div class="box is-flex is-align-items-center">
-        <div class='icon'>
-          <img src="../../../assets/classrooms.png">
-        </div>
-        My classrooms
+<div class="container">
+
+
+    <div class="section has-text-centered">
+      <h1>You currently have</h1>
+    </div>
+
+
+  <nav class="level">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Students</p>
+        <p class="title">{{students.length}}</p>
       </div>
     </div>
-      
-    <div routerLink="/students" class='column is-one-quarter'>
-      
-      <div class="box is-flex is-align-items-center">
-        <div class='icon'>
-          <img src="../../../assets/student2.png">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Classrooms</p>
+        <p class="title">{{classrooms.length}}</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Activities</p>
+        <p class="title">0</p>
+      </div>
+    </div>
+    <!-- <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">Likes</p>
+        <p class="title">789</p>
+      </div>
+    </div> -->
+  </nav>
+
+
+    <div class="block">
+    <h1>Manager</h1>
+    </div>
+
+    <div class="block columns">
+
+      <div class="column is-one-third">
+        <div routerLink="/classrooms" class="box is-flex is-align-items-center">
+          <div class='icon'>
+            <img src="../../../assets/classrooms.png">
+          </div>
+          My classrooms
         </div>
-        My students
+      </div>
+
+      <div class="column is-one-third">
+        <div routerLink="/students" class="box is-flex is-align-items-center">
+          <div class='icon'>
+            <img src="../../../assets/student2.png">
+          </div>
+          My students
+        </div>
       </div>
 
     </div>
-  </div>
+
+
+    <div class="block">
+      <h1>Tools</h1>
+    </div>
+
+    <div class="block columns">
+
+    </div>
+
 </div>
+
 

@@ -1,0 +1,78 @@
+
+.main-menu{
+  background-color: #fff;
+  border: 1px solid whitesmoke;
+  // border-top-right-radius: 10px;
+  // border-bottom-right-radius: 10px;
+  // box-shadow: 0px 0px 20px #d4d4d4;
+
+  z-index: 1;
+
+  width: 50px;
+  height: 100vh;
+
+  position: fixed;
+  top:0;
+  left:0;
+  
+  overflow-x: hidden;
+  overflow-y: hidden;
+  white-space: nowrap;
+  
+  transition: .3s ease;
+}
+.show-on-hover {
+  display: none;
+  margin-left: 1rem;
+}
+
+.main-menu:hover{
+  width : 250px;
+  overflow-y: scroll;
+  
+
+  .show-on-hover {
+    display:inline
+  }
+}
+
+.main-menu .menu-item{
+  padding: 5px 10px 5px 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.main-menu .menu-item:hover{
+  background-color: #d6d6d6;
+  cursor: pointer;
+}
+
+.main-menu .menu-item .fa, .main-menu .menu-item .fa-solid {
+  color: gray;
+  // background-color: #1d0daa;
+  width:50px;
+  font-size: 25px;
+  padding: 10px;
+  text-align: center;
+}
+
+.main-menu .menu-item:hover > .fa{
+  color: #1d0daa;
+}
+
+section.home{
+  background-color: #f3f3f3;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bbbbbb;
+  border-radius: 10px;
+}

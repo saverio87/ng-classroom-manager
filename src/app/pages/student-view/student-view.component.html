@@ -5,12 +5,6 @@ Loading, please wait ...
 <div class="centered-content">
   <div class="modal-box styled-box is-flex is-flex-direction-column">
 
-    <!-- STUDENT NAME -->
-    <div class="centered">
-      <h1>{{student.name}}</h1>
-    </div>
-
-    
     <!-- TABS -->
       <div class="tabs mb-0 is-centered is-medium">
         <ul>
@@ -22,12 +16,38 @@ Loading, please wait ...
         </ul>
       </div>
 
+      <!-- STUDENT NAME -->
+    
+
     <!-- MAIN VIEW  -->
     <div class="main-view" style="padding-top: 2rem">
 
       <!-- INFO TAB VIEW -->
       <ng-container *ngIf="tabView=='info'">
 
+        <div class="columns">
+          <div class="column is-half">
+            <div class="box has-text-centered">
+              <h1>Name</h1>
+          <p class="is-size-4">{{student.name}}</p>
+          <a>Change student name</a>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="box has-text-centered">
+              <h1 class="">Classroom</h1>
+              <span class="is-size-4">{{student.classroom.name}}</span><br/>
+          <a>
+            Assign to another classroom
+          </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class=" my-2">
+          <h1>Name</h1>
+          <p>{{student.name}}</p>
+        </div>
       
         <h1 class="my-3">Classroom</h1>
         <p>
@@ -36,7 +56,7 @@ Loading, please wait ...
           <a>
             Assign to another classroom
           </a>
-        </p>
+        </p> -->
         
         <p class="has-text-right">
           

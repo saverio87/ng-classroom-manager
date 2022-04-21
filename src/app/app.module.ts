@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,8 +13,6 @@ import {reducers, metaReducers} from './state/index';
 import {StudentState} from './state/students/students.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ClassroomsEffects } from './state/classrooms/classrooms.effects';
-import { classroomReducer } from './state/classrooms/classrooms.reducer';
-import { studentReducer } from './state/students/students.reducer';
 import { StudentsEffects } from './state/students/students.effects';
 
 
@@ -46,6 +44,12 @@ import { HydrationEffects } from './state/hydration/hydration.effects';
 import { AddClassroomComponent } from './pages/add-classroom/add-classroom.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { JwPaginationModule } from 'jw-angular-pagination';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { AuthEffects } from './state/auth/auth.effects';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ListbarComponent } from './components/listbar/listbar.component';
+import { WebReqInterceptor } from './services/web-req.interceptor.service';
 
 
 @NgModule({
@@ -59,12 +63,17 @@ import { JwPaginationModule } from 'jw-angular-pagination';
     DashboardViewComponent,
     StudentsViewComponent,
     NavbarComponent,
+    SidebarComponent,
     AddStudentsComponent,
     EditStudentComponent,
     StudentViewComponent,
     ClassroomViewComponent,
     AddClassroomComponent,
     PaginationComponent,
+    LoginComponent,
+    SignupComponent,
+    SidebarComponent,
+    ListbarComponent,
   ],
   imports: [
     JwPaginationModule,
@@ -78,14 +87,15 @@ import { JwPaginationModule } from 'jw-angular-pagination';
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([HydrationEffects, ClassroomsEffects, StudentsEffects]),
+    EffectsModule.forRoot([HydrationEffects, ClassroomsEffects, StudentsEffects, AuthEffects]),
     HttpClientModule,
     FontAwesomeModule,
     ModalModule
 
   ],
   providers: [
-    PersistanceService
+    PersistanceService,
+    {provide: HTTP_INTERCEPTORS, useClass: WebReqInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

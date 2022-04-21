@@ -8,12 +8,22 @@ import { EditStudentComponent } from './components/edit-student/edit-student.com
 import { StudentViewComponent } from './pages/student-view/student-view.component';
 import { ClassroomViewComponent } from './pages/classroom-view/classroom-view.component';
 import { AddClassroomComponent } from './pages/add-classroom/add-classroom.component';
+import { LoginComponent } from './pages/login/login.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'dashboard', pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'signup',
+    component: SignupComponent
   },
   {
     path: 'dashboard',

@@ -2,6 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import {Classroom} from '../../models/classroom.model';
 import { addClassroomNote, addClassroomNoteSuccess, addClassroomNoteFailure, deleteClassroomNote, deleteClassroomNoteSuccess, deleteClassroomNoteFailure, loadClassroom, loadClassrooms, loadClassroomsFailure, loadClassroomsSuccess, addClassroom, addClassroomSuccess, addClassroomFailure, removeClassroom, removeClassroomSuccess, removeClassroomFailure } from './classrooms.actions';
 
+import { resetAllStates } from '../index';
+
 
 
 export interface ClassroomState {
@@ -21,9 +23,16 @@ export const initialState: ClassroomState = {
 }
 
 export const classroomReducer = createReducer(
+  
   initialState, on(loadClassrooms, (state)=>(
     { ...state, status: 'loading' }
   )),
+
+  // Reset State
+
+  on(resetAllStates, (state) => ({
+    ...initialState
+  })),
 
   // Classroom - LOAD / ADD / DELETE
 

@@ -36,7 +36,9 @@ import {loadStudents,
   deleteFeedbackFailure
   
 } from './students.actions';
-import { StudentsEffects } from './students.effects';
+
+import { resetAllStates } from '../index';
+
 
 export interface StudentState {
   students: Student[];
@@ -56,6 +58,12 @@ export const initialState: StudentState = {
 
 export const studentReducer = createReducer(
   initialState, 
+
+  // Reset State
+
+  on(resetAllStates, (state) => ({
+    ...initialState
+  })),
 
   // Load student / Load students
   

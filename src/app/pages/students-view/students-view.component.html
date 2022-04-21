@@ -1,19 +1,25 @@
-<p>students-view works!</p>
+
 
 <div class="container">
 
+  <div class="section has-text-centered">
+    <h1 class='is-size-2 is-uppercase'>My Students</h1>
+  </div>
+
   <!-- menu -->
 
-  <div class="tabs is-boxed is-medium is-right">
+  
+    <div class="tabs is-medium is-centered is-boxed">
     
-    <ul>
-      Sort by ... &nbsp;&nbsp;&nbsp;
-      <li [ngClass]="{'is-active': sortingMethod === 'alphabet'}"><a (click)="changeSortingMethod('alphabet')">Alphabetical order</a></li>
-      <li [ngClass]="{'is-active': sortingMethod === 'classroom'}"><a (click)="changeSortingMethod('classroom')">Classroom</a></li>
-      <li [ngClass]="{'is-active': sortingMethod === 'sex'}"><a (click)="changeSortingMethod('sex')">Sex/Gender</a></li>
-      
-    </ul>
-  </div>
+      <ul>
+        <!-- Sort by ... &nbsp;&nbsp;&nbsp; -->
+        <li [ngClass]="{'is-active': sortingMethod === 'alphabet'}"><a (click)="changeSortingMethod('alphabet')">Alphabetical order</a></li>
+        <li [ngClass]="{'is-active': sortingMethod === 'classroom'}"><a (click)="changeSortingMethod('classroom')">Classroom</a></li>
+        <li [ngClass]="{'is-active': sortingMethod === 'sex'}"><a (click)="changeSortingMethod('sex')">Sex/Gender</a></li>
+        
+      </ul>
+    </div>
+  
 
   <!-- end menu -->
 
